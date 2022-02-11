@@ -1,0 +1,8 @@
+# Temporary/lock files
+.*
+# Except .gitignore
+!.gitignore
+# Extracted csv files
+*.csv
+# Not example data
+!/data/*.csv
