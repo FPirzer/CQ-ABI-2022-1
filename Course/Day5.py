@@ -1,0 +1,192 @@
+"""
+This is the Python script for our fifth day of Python. We started with a
+repetition concerning dictionaries and worked with some more complex ones.
+Afterwards we learned about the other data structures tuples and sets.
+"""
+# To generate a nested dictionary you have to initiate it first. This can be
+# done as its shown below. So you first initiate the outer dictionary.
+addressbook = {}
+# Now we have to initiate a new dictionary for our first key "Christoph"
+addressbook["Christoph"] = {}
+# Now that both dictionaries are initiated we can start with adding the
+# needed information to them. Therefore we have to use two keys in succession
+# so that we can access a value associated with a key in the second dictionary
+addressbook["Christoph"]["Address"] = "Breiter Weg 12, Magdeburg"
+addressbook["Christoph"]["Number"] = "0391445566"
+addressbook["Christoph"]["Birthday"] = "20.11."
+addressbook["Christoph"]["E-Mail"] = "christoph-knorr@gmx.de"
+# We clould also initate an entry in our big dictionary like this
+addressbook["Yasmina"] = {
+    "Address": "Kuhdamm 10, Berlin",
+    "Number": "030567567",
+    "Birthday": "1.1.",
+    "E-Mail": "y.voelz@cq.de",
+}
+print("Our addressbook looks like this:")
+print(addressbook)
+print("")
+# If you want to print out only one entry at a time you would have to use
+# something like this:
+print("The entries of our dictionary look like this")
+# By using a comma in the print command, we can chain together multiple print
+# outs that have different datatypes. In the case below we have a string and
+# a dictionary that we want to print out together. You can use this method
+# independent of the used data types
+print("Christoph: ", addressbook["Christoph"])
+print("Yasmina: ", addressbook["Yasmina"])
+print("")
+
+# The code from here on is about exercise 19
+# I first ask the user waht he wants to do with the help of an input. The three
+# print outs below are just so that the user sees what his input means.
+print("1: Remove an entry")
+print("2: Change an entry")
+print("3: Add an entry")
+# Now I get my input from the user
+choice = int(input("What changes do you want to make?\n"))
+# I ask if the user typed in a 1
+if choice == 1:
+    # Now I want a second input from the user to choose a name for which all
+    # entries should be deleted
+    keyin = input("Which entry do you want to delete? ")
+    # del addressbook[key_in] # This would be the unsafe version
+    # I create an if statement to see if the key given by the user exists
+    if keyin in addressbook:
+        # if the key exists I remove the corresponding entry in the dictionary
+        del addressbook[keyin]
+    # If the key isn't part of the dictionary I give out a warning
+    else:
+        print("No such key")
+# Now I ask if the user typed in a 2. This elif beolongs to the if in line 48
+elif choice == 2:
+    # Now I ask the user for three new inputs. The first one is again a name,
+    # the second one is a key of the second dictionary (Address, Number, etc..)
+    # and the third one is the new value you put into the dictionary
+    keyin = input("On which entry do you want to make changes? ")
+    key2in = input("Which part should be changed? ")
+    valin = input("What is the new value? ")
+    # addressbook[key_in][key2_in] = val_in #This would be the unsafe version
+    # Again I have to create an if statement to see if the name given already
+    # exists in the dictionary
+    if keyin in addressbook:
+        # Now I need a second if statement to see if the second key (Number, Address, etc.)
+        # really exists in the second dictionary
+        if key2in in addressbook[keyin]:
+            # if everything is ok, I can replace the entry in the dictionary
+            addressbook[keyin][key2in] = valin
+        # if the user gave me a kay other than the already existing ones, I
+        # again print out a warning. So this else belongs to the is in line 74
+        else:
+            print("No such entry")
+    # If the user chose a name that doesn't exist, I give a warning. So this else
+    # belongs to the if in line 71
+    else:
+        print("No such key")
+# Now I ask if the user typed in a 3. This elif also beolongs to the if in line 48
+elif choice == 3:
+    # I ask the user to give a name.
+    key_in = input("How should the new entry be named? ")
+    # Now I ask if the user chose a name that isn't already in the dictionary
+    # that's why we have to use the "not in" statement
+    if key_in not in addressbook:
+        # If we have an unknown key, we need four new inputs from the user
+        # to create the new entry
+        val1_in = input("What is the address of the new entry? ")
+        val2_in = input("Please give me the number: ")
+        val3_in = input("Please type in the Birthday ")
+        val4_in = input("What is the E-Mail address? ")
+        # Now we create the new entry with the help of curly brackets as well as
+        # the ":" and "," operators, just like we saw in lines 22 to 27. The
+        # line breaks were generated by the linter in atom automatically
+        addressbook[key_in] = {
+            "Address": val1_in,
+            "Number": val2_in,
+            "Birthday": val3_in,
+            "E-Mail": val4_in,
+        }
+    # I print out a warning if the user uses a key that is already known. This
+    # else belongs to the if in line 91
+    else:
+        print("Key already known")
+# This else belongs to the if in line 48. It prints out a warning if the first
+# input in line 46 wasn't a 1 or 2 or 3
+else:
+    print("No such option")
+# Now we print out the changed addressbook.
+print(addressbook)
+print("")
+
+# Now we start working with Tuples.
+# To create a tuple you have to use round brackets as shown below
+mytuple1 = (1,2,3)
+# If you want to create a tuple with just 1 entry you have to make sure, that
+# you add a Comma (,) before closing the brackets
+mytuple2 = (1,)
+print("mytuple1: ",mytuple1)
+print("mytuple2: ",mytuple2)
+print("type of mytuple2 ",type(mytuple2))
+# You can creat tuples using Strings as well
+mytuple3 = ("Hello","World")
+print("mytuple3: ",mytuple3)
+print("type of mytuple3: ",type(mytuple3))
+# You can also use the range generator to create tuples, just like we saw for
+# lists. But you have to remember to cast the generator to a tuple
+mytuple4 = tuple(range(5))
+print("mytuple4: ",mytuple4)
+print("type of mytuple4: ",type(mytuple4))
+# You can access specific entries in your tuple with the help of indices, just
+# like you did for lists
+print("Second entry of mytuple4: ", mytuple4[1])
+# You can overwrite existing tuples at any time, so be carfeul when declaring
+# new variables since this is always true. Try to use variable names that are
+# unique and are nearly self explanatory. So that on look at the name can at
+# least give you an idea what this variable is used for
+mytuple1 = (1,2,3,4,5)
+print("New mytuple1: ",mytuple1)
+# Last but not least we want to create a tuple that contains duplicates
+mytuple5 = (1,1,2,3,5,5)
+print("mytuple5: ",mytuple5)
+print("")
+
+# In the last part of our course handled sets. So we now try to create
+# some sets with the help of curly brackets.
+myset1 = {1,2,3}
+print("myset1: ",myset1)
+print("type of myset1: ",type(myset1))
+# If we would use curly brackets without any values in it, we would get a
+# dictionary instead of a set. So myset2 below is a dictionary and not a set
+myset2 = {}
+print("myset2: ",myset2)
+print("type of myset2: ",type(myset2))
+# If we create a set with duplicates, only unique values would be retained
+myset3 = {1,2,3,4,4}
+print("myset3: ",myset3)
+# This method of only retaining unique entries in a set can be used in combination
+# with lists to create a list with only unique entries from a list with duplicates.
+# To show you this on an example I create a list with duplicates below
+list1 = [4,1,2,3,2,4,4]
+print("list1: ",list1)
+# To generate a new list with only unique values, you have to cast the list to
+# a set first, this is done by set(list1) in the command below. Afterwards you
+# have to cast your set to a list again so this is done by the list() command
+# below. You can always use multiple caster in a row simple by using them one
+# after the other. So in the example below list1 is first cast to a set and then
+# this set is cast to a list. So it works inside out.
+list2 = list(set(list1))
+print("list2: ", list2)
+# You can generate sets with the help of the range generator as well. But as
+# always you have to cast the generated
+myset4 = set(range(5))
+print("myset4: ",myset4)
+# We can remove elements from set by using the pop() command
+# In the line below we remove the first element and assign it to a new variable
+elem = myset4.pop()
+print("myset4 after pop: ",myset4)
+print("the removed entry: ",elem)
+# We can use pop() also in place like shown below
+myset4.pop()
+print("myset4 after the second pop: ",myset4)
+# To add elements to the end of a set we have to use the add() method, like
+# it's shown in the example below
+myset4.add(6)
+print("myset4 after the add: ",myset4)
